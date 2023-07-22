@@ -21,26 +21,7 @@ exports.statusCodeFunction = async (statusCode) => {
   });
 };
 
-// connect to databse
-exports.conn = async (DB_URL) => {
-  try {
-    const connection = mongoose.connection;
-    connection.once("open", () => {
-      console.log("MongoDB datebase connection established successfully.");
-    });
-    await mongoose.connect(DB_URL, {
-      tls:true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useUnifiedTopology: true,
-    });
-    console.log("connected to database");
-    express.response.status(200);
-  } catch (err) {
-    console.log(err);
-    express.response.status(400);
-  }
-};
+
 
 exports.findUsers = (id) => {
   return new Promise(async (resolve, reject) => {
