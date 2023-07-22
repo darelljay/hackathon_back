@@ -26,7 +26,7 @@ app.use(session({
 router.post('/scrape1',async (req,res)=>{
     const {url,selector} = req.body;
 
-    res.send( await militeryScrape(url,selector));
+    res.send(JSON.stringify(await militeryScrape(url,selector)));
 });
 
 router.post('/registration',async(req,res)=>{
