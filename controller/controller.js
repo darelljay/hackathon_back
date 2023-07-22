@@ -114,9 +114,13 @@ exports.militeryScrape = async (url, selector) => {
       axios.get(url).then((response) => {
         const html = response.data;
         const $ = cheerio.load(html);
-        const element = $(`${selector}`).text();
-        console.log("genre:", element);
-        resolve(element);
+        const element = $(`${selector}`).toArray();
+        const result_array = []
+        // console.log("genre:", element);
+        element.forEach(element=>{
+          console.log(result_array.push(element.children[0].data))
+        })
+        resolve(result_array[2]);
       });
     } catch (error) {
       console.error("Error", error);
