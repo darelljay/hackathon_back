@@ -115,12 +115,14 @@ exports.militeryScrape = async (url, selector) => {
         const html = response.data;
         const $ = cheerio.load(html);
         const element = $(`${selector}`).toArray();
-        const result_array = []
-        // console.log("genre:", element);
+        const result_array = [];
+        const href_array = [];
+        console.log("genre:", element);
         element.forEach(element=>{
           console.log(result_array.push(element.children[0].data))
+          console.log(href_array.push(element.parent.attribs.href))
         })
-        resolve(result_array);
+        resolve([result_array,href_array]);
       });
     } catch (error) {
       console.error("Error", error);
