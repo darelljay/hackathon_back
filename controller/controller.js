@@ -120,7 +120,7 @@ exports.militeryScrape = async (url, selector) => {
         element.forEach(element=>{
           console.log(result_array.push(element.children[0].data))
         })
-        resolve(result_array[2]);
+        resolve(result_array);
       });
     } catch (error) {
       console.error("Error", error);
