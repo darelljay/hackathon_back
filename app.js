@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const router = require("./router/router");
 const app = express();
@@ -8,7 +9,6 @@ const { conn, findUsers, Registration, Login } = require("./controller/controlle
 const bcrypt = require('bcrypt');
 const DB_URL = process.env.DB_URL;
 
-require("dotenv").config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

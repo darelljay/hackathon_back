@@ -29,6 +29,7 @@ exports.conn = async (DB_URL) => {
       console.log("MongoDB datebase connection established successfully.");
     });
     await mongoose.connect(DB_URL, {
+      tls:true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useUnifiedTopology: true,
