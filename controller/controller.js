@@ -45,7 +45,7 @@ exports.findUsers = (id) => {
 };
 
 // Registration function
-exports.Registration = (name, id, password, phoneNumber, gender, birthday) => {
+exports.Registration = (name, id, password,email) => {
   return new Promise(async (resolve, reject) => {
     const UserExist = await this.findUsers(id).catch(
       (PromiseRejectionEvent) => {
@@ -66,9 +66,7 @@ exports.Registration = (name, id, password, phoneNumber, gender, birthday) => {
           name: name,
           id: id,
           password: encrypted_password,
-          phoneNumber: phoneNumber,
-          gender: gender,
-          birthday: birthday,
+          email: email,
         })
         .then(resolve("Successfully Registered."))
         .catch((error) => {
