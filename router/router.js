@@ -32,7 +32,7 @@ router.post('/scrape1',async (req,res)=>{
 router.post('/registration',async(req,res)=>{
 
     const {name,id,password,email} = req.body;
-    const registration = await Registration(name,id,password,phoneNumber,gender,birthday).catch(PromiseRejectionEvent=>{PromiseRejectionEvent});
+    const registration = await Registration(name,id,password,email).catch(PromiseRejectionEvent=>{PromiseRejectionEvent});
 
     if(registration === "Already Existing User."){
         res.status(400).json(registration);
