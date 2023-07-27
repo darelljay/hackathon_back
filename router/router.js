@@ -17,7 +17,7 @@ app.use(session({
  
  const auth = (req, res) => {
     if (session && session.id) {
-      return 200;
+      return session.UserInfo;
     } else {
       return 401;
     }
@@ -38,6 +38,12 @@ router.post('/registration',async(req,res)=>{
         res.status(400).json(registration);
     }else if(registration === "Successfully Registered."){
         res.status(200).json(registration);
+        session.Info = {
+            name:name,
+            id:id,
+            password:password,
+            email:email
+        }
     }else{
         res.status(500).json(registration);
     }
@@ -46,13 +52,17 @@ router.post('/registration',async(req,res)=>{
 router.post('/Login',async(req,res)=>{
     const {id,password} = req.body;
     const login = await Login(id,password).catch(PromiseRejectionEvent=>{PromiseRejectionEvent});
-
+   
     if(login === "User Not Found." || login === "Wrong Password."){
-        res.status(400).json(login);
-    }else if(login === "Successfully Loged In."){
-        res.status(200).json(login);
-        session.id = id;
-        session.password = password;
+        res.status(400).json(login[0]);
+    }else if(login[0] === "Successfully Loged In."){
+        res.status(200).json(login[0]);
+        session.Info ={
+            name:login[1].name,
+            id:login[1].id,
+            email:login[1].email,
+            password:login[1].password
+        }
     }else if (login === "Internal Server Error."){
         res.status(500).json("Internal Server Error");
     }else{
@@ -61,10 +71,16 @@ router.post('/Login',async(req,res)=>{
 });
 
 router.get('/',(req,res)=>{
-    console.log(session.id);
-    console.log(session.password);
     res.status(200).json('ok');
-})
+});
 
+router.get('/auth',(req,res)=>{
+    if(session.Info === undefined){
+        res.status(409).json('User Not Autherized')
+    }else{
+        res.status(200).send(session.Info);
+    }
+});
 
 module.exports = router;
+

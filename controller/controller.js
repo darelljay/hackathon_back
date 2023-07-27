@@ -90,7 +90,7 @@ exports.Login = (id, pw) => {
         .findOne({ id: id })
         .then(docs=>{
           if(bcrypt.compareSync(pw,docs.password)){
-            resolve("Successfully Loged In.")
+            resolve(["Successfully Loged In.",docs])
           }else{
             resolve("Wrong Password.")
           }
