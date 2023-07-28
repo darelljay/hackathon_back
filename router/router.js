@@ -71,15 +71,10 @@ router.post('/Login',async(req,res)=>{
 });
 
 router.post('/logout',(req,res)=>{
-    req.session.destroy(
-        (error)=>{
-            if(error){
-                res.status(503).json("failed logout")
-            }else{
-                res.status(200).json("Successfully LogedOuts")
-            }
-        }
-    );
+    req.session.destroy()
+    res.status(200).json("Successfully Loged out")
+            
+      
 })
 
 router.get('/',(req,res)=>{
