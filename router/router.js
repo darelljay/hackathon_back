@@ -98,9 +98,9 @@ router.get("/auth", async(req, res) => {
     console.log(auth(req,res));
     if( auth(req,res)){
           const user = req.session.user
-          res.status(200).send(user);
+          res.status(200).json(user);
     }else{
-        res.status(200).json("User Not Autherized",req.session.user);
+        res.status(200).json("User Not Autherized");
     }
 });
 
