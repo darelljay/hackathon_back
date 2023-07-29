@@ -31,10 +31,12 @@ router.post("/registration", async (req, res) => {
   if (registration === "Already Existing User.") {
     res.status(400).json(registration);
   } else if (registration === "Successfully Registered.") {
-    res.status(200).json(registration);
-    req.session.name = name;
-    req.session.Userid = id;
-    req.session.email = email;
+      req.session.name = name;
+      req.session.email = email;
+      req.session.Userid = id;
+      req.session.save(()=>{
+          res.status(200).json(registration);
+      });
   } else {
     res.status(500).json(registration);
   }
