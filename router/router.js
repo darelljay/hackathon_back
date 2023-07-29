@@ -1,16 +1,30 @@
 const express = require("express");
+
+const session = require("express-session");
 const {
-  militeryScrape,
-  signUp,
-  statusCodeFunction,
-  findUsers,
-  signIn,
-  Registration,
-  Login,
+    militeryScrape,
+    signUp,
+    statusCodeFunction,
+    findUsers,
+    signIn,
+    Registration,
+    Login,
 } = require("../controller/controller");
+
+
 const router = express.Router();
 
+
 require("dotenv").config();
+
+const auth = (req,res) =>{
+  console.log(req.session.user)
+    if(req.session.user !== undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 
@@ -47,14 +61,14 @@ router.post("/Login", async (req, res) => {
   const login = await Login(id, password).catch((PromiseRejectionEvent) => {
     PromiseRejectionEvent;
   });
-
+  
   if (login === "User Not Found." || login === "Wrong Password.") {
-    res.status(400).json(login[0]);
+    res.status(400).json(login);
   } else if (login[0] === "Successfully Loged In.") {
-      req.session.name = login[1].name;
-      req.session.Userid = login[1].id;
-      req.session.email = login[1].email;
-    
+      req.session.user ={
+        name:login[1].name,
+        id:login[1].id,
+      } 
       req.session.save(()=>{
           res.status(200).json(login[0]);
       });
@@ -79,14 +93,11 @@ router.get("/", (req, res) => {
   res.status(200).json("ok");
 });
 
-router.get("/auth", (req, res) => {
-    if(req.session.name !== undefined){
-        const UserInfo = {
-            name: req.session.name,
-            id: req.session.Userid,
-            email: req.session.email,
-          };
-          res.status(200).send(UserInfo);
+router.get("/auth", async(req, res) => {
+    console.log(auth(req,res));
+    if( auth(req,res)){
+          const user = req.session.user
+          res.status(200).send(user);
     }else{
         res.status(409).json("User Not Autherized");
     }
