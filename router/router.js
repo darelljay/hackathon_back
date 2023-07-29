@@ -100,7 +100,7 @@ router.get("/auth", async(req, res) => {
           const user = req.session.user
           res.status(200).send(user);
     }else{
-        res.status(200).json("User Not Autherized");
+        res.status(200).json("User Not Autherized",req.session.user);
     }
 });
 
