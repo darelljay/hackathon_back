@@ -45,11 +45,11 @@ router.post("/registration", async (req, res) => {
   if (registration === "Already Existing User.") {
     res.status(400).json(registration);
   } else if (registration === "Successfully Registered.") {
-      req.session.user = {
-        name:name,
-        id:id
-      }
-      req.session.save(()=>{
+    req.session.save(()=>{
+        req.session.user = {
+          name:name,
+          id:id
+        }
           res.status(200).json(registration);
       });
   } else {
@@ -66,11 +66,12 @@ router.post("/Login", async (req, res) => {
   if (login === "User Not Found." || login === "Wrong Password.") {
     res.status(400).json(login);
   } else if (login[0] === "Successfully Loged In.") {
-      req.session.user ={
-        name:login[1].name,
-        id:login[1].id,
-      } 
-      req.session.save(()=>{
+    req.session.save(()=>{
+
+        req.session.user ={
+          name:login[1].name,
+          id:login[1].id,
+        } 
           res.status(200).json(login[0]);
       });
 
