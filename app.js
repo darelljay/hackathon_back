@@ -21,7 +21,10 @@ app.use(
   
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors({
+  origin: 'https://localhost:3000',
+  methods: ['GET', 'POST', 'OPTIONS']
+}))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/",router);
 
