@@ -59,9 +59,9 @@ router.post("/registration", async (req, res) => {
         }
           res.status(200).json(registration);
           isLogin = true;
-      user.name = login[1].name;
-      user.id = login[1].id;
-      user.email = login[1].email;
+      user.name = name;
+      user.id = id;
+      user.email = email;
       });
 
   } else {
