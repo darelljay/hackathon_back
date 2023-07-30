@@ -1,5 +1,12 @@
 const express = require("express");
 
+let isLogin = false;
+let user = {
+  name:'',
+  id:'',
+  email:''
+}
+
 const session = require("express-session");
 const {
     militeryScrape,
@@ -51,7 +58,12 @@ router.post("/registration", async (req, res) => {
           id:id
         }
           res.status(200).json(registration);
+          isLogin = true;
+      user.name = login[1].name;
+      user.id = login[1].id;
+      user.email = login[1].email;
       });
+
   } else {
     res.status(500).json(registration);
   }
@@ -74,7 +86,10 @@ router.post("/Login", async (req, res) => {
         } 
           res.status(200).json(login[0]);
       });
-
+      isLogin = true;
+      user.name = login[1].name;
+      user.id = login[1].id;
+      user.email = login[1].email;
   } else if (login === "Internal Server Error.") {
     res.status(500).json("Internal Server Error");
   } else {
@@ -88,11 +103,20 @@ router.post("/Logout", (req, res) => {
           console.log(err);
         }
      });
+     isLogin = false;
+     user.name = '';
+     user.id = '';
+     user.email = '';
   res.status(200).json("Successfully Loged out");
 });
 
-router.get("/", (req, res) => {
-  res.status(200).json("ok");
+router.get("/isLogin", (req, res) => {
+  const UserObj = {
+    isLogin:isLogin,
+    userInfo:user
+  }
+
+  res.status(200).json(isLogin===false? false:UserObj);
 });
 
 router.get("/auth", async(req, res) => {
@@ -104,5 +128,6 @@ router.get("/auth", async(req, res) => {
         res.status(200).json(false);
     }
 });
+
 
 module.exports = router;
