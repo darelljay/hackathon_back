@@ -4,6 +4,37 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { model } = require("../model/model");
 const bcrypt = require("bcrypt");
+const csvParser  = require('csv-parser');
+const fs = require('fs');
+
+const csvFilePath = './data.csv';
+
+ exports.sendData = (city,count) =>{
+   const resultx = [];
+   const resulty = [];
+   const name = [];
+  return new Promise((resolve, reject) => {
+
+    fs.createReadStream(csvFilePath)
+    .pipe(csvParser())
+    .on('data',(row)=>{
+      if(row.도로명전체주소.includes(city)){
+        if(row.도로명전체주소.includes(count)){
+          if(row.좌표정보x !=='' && row.좌표정보y !== ''){
+            name.push(row.도로명전체주소);
+            resultx.push(row.좌표정보x);
+            resulty.push(row.좌표정보y);
+          }
+        }
+      }
+    }).on('end',()=>{
+      console.log('Funtion executed without errors');
+         resolve({name:name,x:resultx,y:resulty});
+    }) .on('error', (err) => {
+      console.error('Error reading CSV file:', err);
+    });
+  })
+}
 
 exports.statusCodeFunction = async (statusCode) => {
   return new Promise((resolve, reject) => {

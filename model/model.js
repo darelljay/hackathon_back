@@ -23,6 +23,6 @@ const conn = async () => {
       console.log(err);
     }
   };
-
+    
 conn()
 exports.model = Collection;

@@ -41,6 +41,15 @@ router.post("/scrape1", async (req, res) => {
   res.send(JSON.stringify(await militeryScrape(url, selector)));
 });
 
+router.post('/sendLocation',async(req,res)=>{
+  const {city,cnt} = req.body;
+
+  const result = await sendData(city,cnt);
+  
+  res.status(200).send(result);
+
+});
+
 router.post("/registration", async (req, res) => {
   const { name, id, password, email } = req.body;
   const registration = await Registration(name, id, password, email).catch(
