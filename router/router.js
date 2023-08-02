@@ -16,6 +16,7 @@ const {
     signIn,
     Registration,
     Login,
+    sendData,
 } = require("../controller/controller");
 
 
