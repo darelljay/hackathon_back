@@ -139,5 +139,9 @@ router.get("/auth", async(req, res) => {
     }
 });
 
+router.get("/findShelter",(req,res)=>{
+  const {lat,lng} = req.body;
+  res.render("giveUp",{lat,lng})
+})
 
 module.exports = router;

@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
+const ejs = require('ejs');
+
 
 
 app.use(
@@ -27,6 +29,7 @@ app.use(cors({
 }))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/",router);
+app.set("view engine","ejs");
 
 app.listen(process.env.PORT || 8080,async (req, res) => {
     console.log(`server is runnig on port ${process.env.PORT || 8080}`);

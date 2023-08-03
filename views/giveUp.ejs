@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <div style="display: none;" class="lat">
+        <%=lat%>
+    </div>
+    <div style="display: none;" class="lng">
+        <%=lng%>
+    </div>
+
+    <div id="map" style="width: 100%; height: 80%;">
+
+    </div>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c71bba3c9f67b9e9cb05c22d5e8f707d"></script>
+    <script>
+        const lat = document.querySelector(".lat");
+        const lng = document.querySelector(".lng");
+
+        const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        const map = new kakao.maps.Map(mapContainer, mapOption); 
+    </script>
+</body>
+
+</html>
