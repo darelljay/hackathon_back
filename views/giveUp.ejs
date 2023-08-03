@@ -12,7 +12,6 @@
         <%=streat%>
     </div>
 
-
     <div id="map" style="width: 100vw; height: 80vh;"></div>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c71bba3c9f67b9e9cb05c22d5e8f707d&libraries=services"></script>
@@ -25,7 +24,7 @@
 
         // 지도를 생성합니다    
         const map = new kakao.maps.Map(mapContainer, mapOption);
-        
+
         const streat = document.querySelector(".streat").textContent;
 
         const geocoder = new kakao.maps.services.Geocoder();
