@@ -10,8 +10,7 @@ const fs = require('fs');
 const csvFilePath = './data.csv';
 
  exports.sendData = (city,count) =>{
-   const resultx = [];
-   const resulty = [];
+  const streatName = [];
    const name = [];
   return new Promise((resolve, reject) => {
 
@@ -22,14 +21,13 @@ const csvFilePath = './data.csv';
         if(row.도로명전체주소.includes(count)){
           if(row.좌표정보x !=='' && row.좌표정보y !== ''){
             name.push(row.도로명전체주소);
-            resultx.push(row.좌표정보x);
-            resulty.push(row.좌표정보y);
+            streatName.push(row.도로명전체주소);
           }
         }
       }
     }).on('end',()=>{
       console.log('Funtion executed without errors');
-         resolve({name:name,x:resultx,y:resulty});
+         resolve({name:name,streatName:streatName});
     }) .on('error', (err) => {
       console.error('Error reading CSV file:', err);
     });
