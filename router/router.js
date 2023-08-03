@@ -140,13 +140,10 @@ router.get("/auth", async(req, res) => {
 });
 
 router.get("/findShelter",(req,res)=>{
-  const lat = req.query.lat;
-  const lng = req.query.lng;
-  console.log(req.query)
-  console.log(lat);
-  console.log(lng);
+  console.log(req.query);
+  const streat = req.query.streat;
 
-  res.render("giveUp",{lat,lng})
+  res.render("giveUp",{streat});
 })
 
 module.exports = router;
